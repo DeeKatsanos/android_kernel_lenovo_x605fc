@@ -162,7 +162,7 @@ check-lxdialog  := $(srctree)/$(src)/lxdialog/check-lxdialog.sh
 # Use recursively expanded variables so we do not call gcc unless
 # we really need to do so. (Do not call gcc as part of make mrproper)
 HOST_EXTRACFLAGS += $(shell $(CONFIG_SHELL) $(check-lxdialog) -ccflags) \
-                    -DLOCALE
+                    -DLOCALE -Wno-error=dangling-pointer
 
 # ===========================================================================
 # Shared Makefile for the various kconfig executables:
@@ -203,7 +203,7 @@ $(obj)/dochecklxdialog:
 always := dochecklxdialog
 
 # Add environment specific flags
-HOST_EXTRACFLAGS += $(shell $(CONFIG_SHELL) $(srctree)/$(src)/check.sh $(HOSTCC) $(HOSTCFLAGS))
+HOST_EXTRACFLAGS += $(shell $(CONFIG_SHELL) $(srctree)/$(src)/check.sh $(HOSTCC) $(HOSTCFLAGS)) -Wno-error=dangling-pointer
 
 # generated files seem to need this to find local include files
 HOSTCFLAGS_zconf.lex.o	:= -I$(src)
